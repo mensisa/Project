@@ -25,7 +25,6 @@ import javax.swing.JFrame;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.model.CurrentWeather;
-import net.aksingh.owmjapis.model.DailyWeatherForecast;
 
 /**
  *
@@ -63,7 +62,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     
     public WeatherWearGUI() throws APIException, IOException {
         initComponents();
-        getWeatherData(4928096);
+        getWeatherData(5809844);
         setWeatherData(WestLafayette);
     }
     
@@ -98,6 +97,8 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         Main = new javax.swing.JLabel();
         F = new javax.swing.JLabel();
         C = new javax.swing.JLabel();
+        Precipitation = new javax.swing.JLabel();
+        PrecipitationLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -270,6 +271,12 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
             }
         });
 
+        Precipitation.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        Precipitation.setText("Precipitation");
+
+        PrecipitationLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        PrecipitationLabel.setText("Precipitation");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -277,20 +284,6 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(PressureLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(HumidityLabel)
-                                    .addGap(58, 58, 58)))
-                            .addComponent(WindLabel))
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Wind)
-                            .addComponent(Pressure)
-                            .addComponent(Humidity))
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(City)
@@ -300,14 +293,30 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
                                     .addComponent(TempMM, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(F)
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 1, Short.MAX_VALUE)
                                 .addComponent(C))
                             .addComponent(Main))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ICON, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(DateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(PressureLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(HumidityLabel)
+                                    .addGap(58, 58, 58)))
+                            .addComponent(WindLabel)
+                            .addComponent(PrecipitationLabel))
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Precipitation)
+                            .addComponent(Wind)
+                            .addComponent(Pressure)
+                            .addComponent(Humidity))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -341,7 +350,11 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(WindLabel)
                     .addComponent(Wind))
-                .addGap(56, 56, 56))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(PrecipitationLabel)
+                    .addComponent(Precipitation))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -382,15 +395,16 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         
         precipitation = new Precipitation(0,weather);
         if (weather.getId() < 300) {
-            if (cwd.getRainData().getPrecipVol3h() != null)
+            if (cwd.getRainData() != null)
                 precipitation.setPrecAmt(cwd.getRainData().getPrecipVol3h());
             thunderstorm = new Thunderstorm(precipitation, weather);
         } else if (weather.getId() < 400) {
-            if (cwd.getRainData().getPrecipVol3h() != null)
+            if (cwd.getRainData() != null)
                 precipitation.setPrecAmt(cwd.getRainData().getPrecipVol3h());
             drizzle = new Drizzle(precipitation, weather);
         } else if (weather.getId() <  600) {
-            precipitation = new Precipitation(cwd.getRainData().getPrecipVol3h(), weather);
+            if (cwd.getRainData() != null)
+                precipitation.setPrecAmt(cwd.getRainData().getPrecipVol3h());
             rain = new Rain(precipitation, weather);
         } else if (weather.getId() < 700) {
             precipitation = new Precipitation(weather);
@@ -418,6 +432,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         DateTime.setText(formatter.format(calendar.getTime()));
         Wind.setText(String.format("%.0f", wind.getWindSpeedMph()) + " mph " + wind.getWindDirection());
         Main.setText(weather.getMain());
+        Precipitation.setText(String.format("%.0f", precipitation.getPrecAmt()) + " mm");
         ICON.setIcon(new ImageIcon(resized));
     }
     
@@ -545,6 +560,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
 //            }
 //        });
         WeatherWearGUI gui = new WeatherWearGUI();
+        gui.setTitle("WeatherWear");
         gui.setVisible(true);
     }
 
@@ -557,6 +573,8 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     private javax.swing.JLabel HumidityLabel;
     private javax.swing.JLabel ICON;
     private javax.swing.JLabel Main;
+    private javax.swing.JLabel Precipitation;
+    private javax.swing.JLabel PrecipitationLabel;
     private javax.swing.JLabel Pressure;
     private javax.swing.JLabel PressureLabel;
     private javax.swing.JLabel Temp;
