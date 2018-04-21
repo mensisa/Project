@@ -58,7 +58,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="title" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="104" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="maximizer" min="-2" max="-2" attributes="0"/>
@@ -204,29 +204,19 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="City" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="Temp" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="TempMM" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="F" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                                  <Component id="C" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="Main" min="-2" max="-2" attributes="0"/>
+                      <Component id="City" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="Main" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="Temp" alignment="0" max="32767" attributes="0"/>
+                              <Component id="TempMM" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="232" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="ICON" min="-2" max="-2" attributes="0"/>
-                              <Component id="DateTime" min="-2" pref="141" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="F" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="C" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                   <Component id="PressureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -242,12 +232,27 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Precipitation" min="-2" max="-2" attributes="0"/>
                               <Component id="Wind" min="-2" max="-2" attributes="0"/>
-                              <Component id="Pressure" min="-2" max="-2" attributes="0"/>
-                              <Component id="Humidity" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="Humidity" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Pressure" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ClothingLabel" min="-2" max="-2" attributes="0"/>
+                                      <Component id="Clothing" min="-2" max="-2" attributes="0"/>
+                                      <Component id="ICON" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="DateTimeLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="DateTime" min="-2" pref="141" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -258,10 +263,11 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="City" alignment="3" max="32767" attributes="0"/>
                       <Component id="DateTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="DateTimeLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Component id="TempMM" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="Main" min="-2" max="-2" attributes="0"/>
@@ -273,28 +279,34 @@
                                   <Component id="F" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="HumidityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Humidity" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="PressureLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Pressure" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="WindLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Wind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="PrecipitationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Precipitation" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <Component id="ICON" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="HumidityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Humidity" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="PressureLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Pressure" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="WindLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Wind" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="PrecipitationLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Precipitation" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="ICON" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="ClothingLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Clothing" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
@@ -449,6 +461,30 @@
               <Font name="Segoe UI" size="13" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Precipitation"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="ClothingLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Clothing Suggestion"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Clothing">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Clothing"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="DateTimeLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Updated at:"/>
           </Properties>
         </Component>
       </SubComponents>

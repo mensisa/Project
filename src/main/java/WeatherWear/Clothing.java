@@ -9,55 +9,51 @@ package WeatherWear;
  *
  * @author sdzar
  */
-public class Clothing{
-    protected boolean Waterproof;
-    protected boolean Heated;
-    protected boolean Thermal;
-    protected String partofBody;
-    protected String Season;
+class Clothing {
+
+    String top;
+    String bottom;
+    String accessory;
 
     public Clothing() {
-    }    
-    
-    public boolean isWaterproof() {
-        return Waterproof;
     }
 
-    public void setWaterproof(boolean Waterproof) {
-        this.Waterproof = Waterproof;
+    public void setClothing(double temp) {
+        if (260 < temp && temp < 273.15) {
+            top = "Coat and sweater";
+            bottom = "Heavy pants";
+        } else if (temp < 283.15) {
+            top = "Coat";
+            bottom = "Pants";
+        } else if (temp < 293.15) {
+            top = "Sweater or shirt";
+            bottom = "Pants or Jeans";
+        } else if (temp < 303.15) {
+            top = "Long/Short-sleeved shirt";
+            bottom = "Jeans or Shorts";
+        } else if (temp < 313.15) {
+            top = "Short-sleeved shirt";
+            bottom = "Shorts";
+        } else if (temp > 325) {
+            top = "Too hot!";
+            bottom = "Stay inside!";
+        } else {
+            top = "Too cold!";
+            bottom = "Stay inside!";
+        }
     }
 
-    public boolean isHeated() {
-        return Heated;
+    public void setAccessory(boolean rain) {
+        if (rain) {
+            accessory = "Umbrella";
+        } else {
+            accessory = "";
+        }
     }
 
-    public void setHeated(boolean Heated) {
-        this.Heated = Heated;
+    public String getClothing() {
+        return "<html>" + top + "<br>"
+                + bottom + "<br>"
+                + accessory + "</html>";
     }
-
-    public boolean isThermal() {
-        return Thermal;
-    }
-
-    public void setThermal(boolean Thermal) {
-        this.Thermal = Thermal;
-    }
-
-    public String getPartofBody() {
-        return partofBody;
-    }
-
-    public void setPartofBody(String partofBody) {
-        this.partofBody = partofBody;
-    }
-
-    public String getSeason() {
-        return Season;
-    }
-
-    public void setSeason(String Season) {
-        this.Season = Season;
-    }
-
 }
-
