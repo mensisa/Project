@@ -62,7 +62,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     
     public WeatherWearGUI() throws APIException, IOException {
         initComponents();
-        getWeatherData(5809844);
+        getWeatherData(4928096);
         setWeatherData(WestLafayette);
     }
     
