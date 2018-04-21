@@ -25,7 +25,6 @@ public class WeatherWear {
         System.out.println("City: " + cwd.getCityName());
 
         // printing the max./min. temperature
-        System.out.println("Temperature: " + cwd.getMainData().getTempMax()
-                            + "/" + cwd.getMainData().getTempMin() + "\'K" + cwd.getWeatherList().get(0).getConditionId());
+        System.out.println(cwd.getWindData());
     }
 }

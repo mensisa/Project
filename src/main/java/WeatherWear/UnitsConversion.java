@@ -10,5 +10,6 @@ package WeatherWear;
  * @author sdzar
  */
 public interface UnitsConversion {
-    
+    public double kToC(double i);
+    public double kToF(double i);
 }

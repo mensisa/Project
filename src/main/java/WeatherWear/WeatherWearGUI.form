@@ -57,7 +57,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                   <Component id="title" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="260" max="32767" attributes="0"/>
+                  <EmptySpace pref="104" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="maximizer" min="-2" max="-2" attributes="0"/>
@@ -171,6 +171,9 @@
               <Border info="null"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchTextFieldActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="AutoSuggestor autoSuggestor = new AutoSuggestor(searchTextField, WeatherWearGUI.this, null, Color.WHITE, Color.BLACK, Color.RED, 1.0f) {&#xa;    @Override&#xa;    boolean wordTyped(String typedWord) {&#xa;        //create list for dictionary this in your case might be done via calling a method which queries db and returns results as arraylist&#xa;        ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();&#xa;        words.add(&quot;West Lafayette&quot;);&#xa;        words.add(&quot;Indianapolis&quot;);&#xa;        words.add(&quot;Chicago&quot;);&#xa;        words.add(&quot;Los Angeles&quot;);&#xa;        words.add(&quot;Paris&quot;);&#xa;        words.add(&quot;Kathmandu&quot;);&#xa;&#xa;        setDictionary(words);&#xa;        //addToDictionary(&quot;bye&quot;);//adds a single word&#xa;        return super.wordTyped(typedWord);//now call super to check for any matches against newest dictionary&#xa;    }&#xa;};"/>
           </AuxValues>
@@ -200,33 +203,42 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="City" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          <Component id="DateTime" min="-2" pref="102" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="Temp" alignment="0" pref="145" max="32767" attributes="0"/>
-                              <Component id="TempMM" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="PressureLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="Pressure" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="PressureLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="HumidityLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="Humidity" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="WindLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
-                          <Component id="ICON" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="Wind" min="-2" max="-2" attributes="0"/>
+                              <Component id="Pressure" min="-2" max="-2" attributes="0"/>
+                              <Component id="Humidity" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="City" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="Temp" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="TempMM" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="Main" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="ICON" min="-2" max="-2" attributes="0"/>
+                              <Component id="DateTime" min="-2" pref="141" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -239,28 +251,32 @@
                       <Component id="DateTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="TempMM" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="Temp" min="-2" pref="90" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                          <Component id="ICON" min="-2" max="-2" attributes="0"/>
+                          <Component id="TempMM" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Main" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Temp" min="-2" pref="79" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="HumidityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Humidity" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="PressureLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Pressure" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="WindLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Wind" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
+                      <Component id="ICON" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="HumidityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Humidity" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="PressureLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Pressure" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <EmptySpace pref="104" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -303,7 +319,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Humidity: "/>
+            <Property name="text" type="java.lang.String" value="Humidity "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="Humidity">
@@ -311,7 +327,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Humidity: "/>
+            <Property name="text" type="java.lang.String" value="Humidity"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="PressureLabel">
@@ -319,7 +335,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="13" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pressure:"/>
+            <Property name="text" type="java.lang.String" value="Pressure"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="Pressure">
@@ -332,7 +348,40 @@
         </Component>
         <Component class="javax.swing.JLabel" name="ICON">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ICON"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 100]"/>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 100]"/>
+            </Property>
+            <Property name="name" type="java.lang.String" value="" noResource="true"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[100, 100]"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="WindLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Wind"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Wind">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Wind"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="Main">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="13" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Main"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -6,13 +6,19 @@
 package WeatherWear;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,7 +30,7 @@ import net.aksingh.owmjapis.model.CurrentWeather;
  *
  * @author sdzar
  */
-public class WeatherWearGUI extends javax.swing.JFrame {
+public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversion{
 
     /**
      * Creates new form WeatherWearGUI
@@ -39,7 +45,7 @@ public class WeatherWearGUI extends javax.swing.JFrame {
     Location LosAngeles = new Location("US", "CA", new City("Los Angeles", 5344994, "91001"));
     Location Paris = new Location("FR", "IN", new City("Paris", 6269531, "75000"));
     Location Kathmandu = new Location("NP", "Province No. 3", new City("Kathmandu", 1283240, "44600"));
-    City city;
+    Location city;
     Weather weather = new Weather();
     Precipitation precipitation;
     Rain rain;
@@ -51,11 +57,13 @@ public class WeatherWearGUI extends javax.swing.JFrame {
     Clouds clouds;
     Extreme extreme;
     Date date;
+    Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatter;
     
     public WeatherWearGUI() throws APIException, IOException {
         initComponents();
-        getWeatherData(6269531);
-        setWeatherData();
+        getWeatherData(4928096);
+        setWeatherData(WestLafayette);
     }
     
     /**
@@ -84,6 +92,9 @@ public class WeatherWearGUI extends javax.swing.JFrame {
         PressureLabel = new javax.swing.JLabel();
         Pressure = new javax.swing.JLabel();
         ICON = new javax.swing.JLabel();
+        WindLabel = new javax.swing.JLabel();
+        Wind = new javax.swing.JLabel();
+        Main = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -148,6 +159,11 @@ public class WeatherWearGUI extends javax.swing.JFrame {
                 return super.wordTyped(typedWord);//now call super to check for any matches against newest dictionary
             }
         };
+        searchTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTextFieldActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,7 +172,7 @@ public class WeatherWearGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(maximizer)
@@ -207,18 +223,30 @@ public class WeatherWearGUI extends javax.swing.JFrame {
         Temp.setText("Temp");
 
         HumidityLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        HumidityLabel.setText("Humidity: ");
+        HumidityLabel.setText("Humidity ");
 
         Humidity.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        Humidity.setText("Humidity: ");
+        Humidity.setText("Humidity");
 
         PressureLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        PressureLabel.setText("Pressure:");
+        PressureLabel.setText("Pressure");
 
         Pressure.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         Pressure.setText("Pressure");
 
-        ICON.setText("ICON");
+        ICON.setMaximumSize(new java.awt.Dimension(100, 100));
+        ICON.setMinimumSize(new java.awt.Dimension(100, 100));
+        ICON.setName(""); // NOI18N
+        ICON.setPreferredSize(new java.awt.Dimension(100, 100));
+
+        WindLabel.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        WindLabel.setText("Wind");
+
+        Wind.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        Wind.setText("Wind");
+
+        Main.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        Main.setText("Main");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -228,25 +256,31 @@ public class WeatherWearGUI extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(City)
-                        .addGap(49, 49, 49)
-                        .addComponent(DateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Temp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(TempMM, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(PressureLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(Pressure))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(PressureLabel, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addComponent(HumidityLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(Humidity))))
-                        .addGap(134, 134, 134)
-                        .addComponent(ICON)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(58, 58, 58)))
+                            .addComponent(WindLabel))
+                        .addGap(1, 1, 1)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Wind)
+                            .addComponent(Pressure)
+                            .addComponent(Humidity))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(City)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(Temp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(TempMM, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(Main))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ICON, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(DateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(45, 45, 45))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,23 +290,27 @@ public class WeatherWearGUI extends javax.swing.JFrame {
                     .addComponent(City)
                     .addComponent(DateTime))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TempMM)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(TempMM)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Temp, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(ICON)))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(HumidityLabel)
-                    .addComponent(Humidity))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PressureLabel)
-                    .addComponent(Pressure))
-                .addContainerGap(135, Short.MAX_VALUE))
+                        .addComponent(Main)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Temp, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(HumidityLabel)
+                            .addComponent(Humidity))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(PressureLabel)
+                            .addComponent(Pressure))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(WindLabel)
+                            .addComponent(Wind)))
+                    .addComponent(ICON, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -295,8 +333,8 @@ public class WeatherWearGUI extends javax.swing.JFrame {
 
     public void getWeatherData(int id) throws APIException {
         CurrentWeather cwd = owm.currentWeatherByCityId(id);
-        city = new City(cwd.getCityName(), cwd.getCityId());
         date = cwd.getDateTime();
+        calendar.setTime(date);
         System.out.println(cwd.getWeatherList().get(0).getConditionId());
         weather.setId(cwd.getWeatherList().get(0).getConditionId());
         weather.setMain(cwd.getWeatherList().get(0).getMainInfo());
@@ -308,13 +346,17 @@ public class WeatherWearGUI extends javax.swing.JFrame {
         weather.setTemp_max(cwd.getMainData().getTempMax());
         weather.setTemp_min(cwd.getMainData().getTempMin());
         weather.setWind(new Wind(cwd.getWindData().getSpeed(), cwd.getWindData().getDegree()));
+        wind = weather.getWind();
+        
+        precipitation = new Precipitation(0,weather);
         if (weather.getId() < 300) {
-            precipitation = new Precipitation(cwd.getRainData().getPrecipVol3h(), weather);
+            if (cwd.getRainData().getPrecipVol3h() != null)
+                precipitation.setPrecAmt(cwd.getRainData().getPrecipVol3h());
             thunderstorm = new Thunderstorm(precipitation, weather);
         } else if (weather.getId() < 400) {
-//            precipitation = new Precipitation(weather);
-//            precipitation.setPrecAmt(cwd.getRainData().getPrecipVol3h());
-//            drizzle = new Drizzle(precipitation, weather);
+            if (cwd.getRainData().getPrecipVol3h() != null)
+                precipitation.setPrecAmt(cwd.getRainData().getPrecipVol3h());
+            drizzle = new Drizzle(precipitation, weather);
         } else if (weather.getId() <  600) {
             precipitation = new Precipitation(cwd.getRainData().getPrecipVol3h(), weather);
             rain = new Rain(precipitation, weather);
@@ -331,17 +373,31 @@ public class WeatherWearGUI extends javax.swing.JFrame {
         }
     }
 
-    public void setWeatherData() throws MalformedURLException, IOException {
+    public void setWeatherData(Location city) throws MalformedURLException, IOException {
         URL url = new URL(weather.getIcon());
-        Image image = ImageIO.read(url);
-        City.setText(city.getCity());
+        BufferedImage image = ImageIO.read(url);
+        BufferedImage resized = resize(image, 100, 100);
+        City.setText(city.getCity().getCity());
         TempMM.setText("Day " + weather.temp_max + " / Night " + weather.temp_min);
         Temp.setText(String.valueOf(weather.getTemp()));
         Humidity.setText(String.valueOf(weather.getHumidity()) + "%");
-        Pressure.setText(String.valueOf(weather.getPressure()));
-        ICON.setIcon(new ImageIcon(image));
+        Pressure.setText(String.valueOf(weather.getPressure()) + " hPa");
+        formatter = new SimpleDateFormat("MMMM dd hh:mm z");
+        DateTime.setText(formatter.format(calendar.getTime()));
+        Wind.setText(String.format("%.0f", wind.getWindSpeedMph()) + " mph " + wind.getWindDirection());
+        Main.setText(weather.getMain());
+        ICON.setIcon(new ImageIcon(resized));
     }
     
+    private static BufferedImage resize(BufferedImage img, int height, int width) {
+        Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resized.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+        return resized;
+    }
+        
     int xy;
     int xx;
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
@@ -380,6 +436,34 @@ public class WeatherWearGUI extends javax.swing.JFrame {
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
         System.exit(0);
     }//GEN-LAST:event_closeMouseClicked
+
+    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
+        try {
+            if (searchTextField.getText().trim().equalsIgnoreCase("West Lafayette")) {
+                getWeatherData(WestLafayette.getCity().getID());
+                setWeatherData(WestLafayette);
+            } else if (searchTextField.getText().trim().equalsIgnoreCase("Indianapolis")) {
+                getWeatherData(Indianapolis.getCity().getID());
+                setWeatherData(Indianapolis);
+            } else if (searchTextField.getText().trim().equalsIgnoreCase("Chicago")) {
+                getWeatherData(Chicago.getCity().getID());
+                setWeatherData(Chicago);
+            } else if (searchTextField.getText().trim().equalsIgnoreCase("Los Angeles")) {
+                getWeatherData(LosAngeles.getCity().getID());
+                setWeatherData(LosAngeles);
+            } else if (searchTextField.getText().trim().equalsIgnoreCase("Paris")) {
+                getWeatherData(Paris.getCity().getID());
+                setWeatherData(Paris);
+            } else if (searchTextField.getText().trim().equalsIgnoreCase("Kathmandu")) {
+                getWeatherData(Kathmandu.getCity().getID());
+                setWeatherData(Kathmandu);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(WeatherWearGUI.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (APIException ex) {
+            Logger.getLogger(WeatherWearGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_searchTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -424,10 +508,13 @@ public class WeatherWearGUI extends javax.swing.JFrame {
     private javax.swing.JLabel Humidity;
     private javax.swing.JLabel HumidityLabel;
     private javax.swing.JLabel ICON;
+    private javax.swing.JLabel Main;
     private javax.swing.JLabel Pressure;
     private javax.swing.JLabel PressureLabel;
     private javax.swing.JLabel Temp;
     private javax.swing.JLabel TempMM;
+    private javax.swing.JLabel Wind;
+    private javax.swing.JLabel WindLabel;
     private javax.swing.JLabel close;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -437,4 +524,14 @@ public class WeatherWearGUI extends javax.swing.JFrame {
     private javax.swing.JTextField searchTextField;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public double kToC(double i) {
+        return i - 273.15;
+    }
+
+    @Override
+    public double kToF(double i) {
+        return i * 9 / 5 - 459.67;
+    }
 }

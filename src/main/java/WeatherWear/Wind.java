@@ -54,7 +54,7 @@ public class Wind {
             dir = "W";
         } else if (windDirection > 292.5 && windDirection < 337.5) {
             dir = "NW";
-        } else if (windDirection >= 337.5 && windDirection <= 22.5) {
+        } else if (windDirection >= 337.5 || windDirection <= 22.5) {
             dir = "N";
         } else {
             dir = "error";
