@@ -9,6 +9,7 @@ import java.util.List;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.model.CurrentWeather;
+import net.aksingh.owmjapis.model.DailyWeatherForecast;
 
 public class WeatherWear {
 
@@ -25,6 +26,6 @@ public class WeatherWear {
         System.out.println("City: " + cwd.getCityName());
 
         // printing the max./min. temperature
-        System.out.println(cwd.getWindData());
+        System.out.println();
     }
 }
