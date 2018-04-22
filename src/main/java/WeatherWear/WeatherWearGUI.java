@@ -150,7 +150,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         searchTextField.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         searchTextField.setForeground(new java.awt.Color(255, 255, 255));
         searchTextField.setBorder(null);
-        AutoSuggestor autoSuggestor = new AutoSuggestor(searchTextField, WeatherWearGUI.this, null, Color.WHITE, Color.BLACK, Color.RED, 1.0f) {
+        AutoSuggestor autoSuggestor = new AutoSuggestor(searchTextField, WeatherWearGUI.this, null, Color.WHITE, Color.BLACK, Color.RED, 0.75f) {
             @Override
             boolean wordTyped(String typedWord) {
                 //create list for dictionary this in your case might be done via calling a method which queries db and returns results as arraylist
