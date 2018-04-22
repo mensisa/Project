@@ -78,7 +78,6 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
 
         jPanel1 = new javax.swing.JPanel();
         close = new javax.swing.JLabel();
-        maximizer = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
         search = new javax.swing.JLabel();
         searchTextField = new javax.swing.JTextField();
@@ -129,15 +128,6 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
             }
         });
 
-        maximizer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maximizer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/maximize.png"))); // NOI18N
-        maximizer.setIcon(new ImageIcon(getClass().getResource("/maximize.png")));
-        maximizer.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                maximizerMouseClicked(evt);
-            }
-        });
-
         title.setBackground(new java.awt.Color(204, 153, 0));
         title.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         title.setForeground(new java.awt.Color(204, 153, 0));
@@ -180,12 +170,9 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(title)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(maximizer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(close))
+                    .addComponent(close, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -202,9 +189,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(maximizer)
-                            .addComponent(close))
+                        .addComponent(close)
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(search)
@@ -338,7 +323,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 19, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(City, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(DateTime)
@@ -390,10 +375,9 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -406,6 +390,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         date = cwd.getDateTime();
         calendar.setTime(date);
         System.out.println(cwd.getWeatherList().get(0).getConditionId());
+        System.out.println(cwd.getWindData());
         weather.setId(cwd.getWeatherList().get(0).getConditionId());
         weather.setMain(cwd.getWeatherList().get(0).getMainInfo());
         weather.setDescription(cwd.getWeatherList().get(0).getDescription());
@@ -415,7 +400,11 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         weather.setTemp(cwd.getMainData().getTemp());
         weather.setTemp_max(cwd.getMainData().getTempMax());
         weather.setTemp_min(cwd.getMainData().getTempMin());
-        weather.setWind(new Wind(cwd.getWindData().getSpeed(), cwd.getWindData().getDegree()));
+        if (cwd.getWindData().getDegree() == null) {
+            weather.setWind(new Wind(cwd.getWindData().getSpeed(), 0));
+        } else {
+            weather.setWind(new Wind(cwd.getWindData().getSpeed(), cwd.getWindData().getDegree()));
+        }
         wind = weather.getWind();
         cloth = new Clothing();
         cloth.setClothing(weather.getTemp());
@@ -491,24 +480,6 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         int y = evt.getYOnScreen();
         this.setLocation(x-xx,y-xy);
     }//GEN-LAST:event_jPanel1MouseDragged
-
-    private void maximizerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_maximizerMouseClicked
-        if(maximized) {
-            //handle fullscreen - taskbar
-            WeatherWearGUI.this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            WeatherWearGUI.this.setMaximizedBounds(env.getMaximumWindowBounds());
-            ii = new ImageIcon(getClass().getResource("/minimize.png"));
-            maximizer.setIcon(ii);
-            maximized = false;
-        }
-        else {
-            setExtendedState(JFrame.NORMAL);
-            ii = new ImageIcon(getClass().getResource("/maximize.png"));
-            maximizer.setIcon(ii);
-            maximized = true;
-        }
-    }//GEN-LAST:event_maximizerMouseClicked
 
     private void closeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeMouseClicked
         System.exit(0);
@@ -613,7 +584,6 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel maximizer;
     private javax.swing.JLabel search;
     private javax.swing.JTextField searchTextField;
     private javax.swing.JLabel title;
