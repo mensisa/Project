@@ -25,8 +25,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 /**
- *
- * @author sdzar
+ * This class is connect with WeatherWearGUI to create a drop-down AutoSuggestor JTextfield 
+ * @author 
  */
 class AutoSuggestor {
 

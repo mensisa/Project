@@ -19,8 +19,8 @@ import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 
 /**
- *
- * @author sdzar
+ * This class is used to create a suggestion label for AutoSuggestor
+ * @author
  */
 class SuggestionLabel extends JLabel {
 

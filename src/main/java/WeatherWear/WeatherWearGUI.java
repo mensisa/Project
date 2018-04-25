@@ -63,7 +63,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     
     public WeatherWearGUI() throws APIException, IOException {
         initComponents();
-        getWeatherData(4928096);
+        getWeatherData(4180439);
         setWeatherData(WestLafayette);
     }
     
@@ -390,7 +390,6 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         date = cwd.getDateTime();
         calendar.setTime(date);
         System.out.println(cwd.getWeatherList().get(0).getConditionId());
-        System.out.println(cwd.getWindData());
         weather.setId(cwd.getWeatherList().get(0).getConditionId());
         weather.setMain(cwd.getWeatherList().get(0).getMainInfo());
         weather.setDescription(cwd.getWeatherList().get(0).getDescription());
@@ -439,6 +438,8 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     * This method is used to display all the data which saved in objects on the GUI
     */
     public void setWeatherData(Location city) throws MalformedURLException, IOException {
+        F.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        C.setFont(new java.awt.Font("Segoe UI", 0, 13));
         URL url = new URL(weather.getIcon());
         BufferedImage image = ImageIO.read(url);
         BufferedImage resized = resize(image, 100, 100);
@@ -469,6 +470,9 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
         
     int xy;
     int xx;
+    /*
+    The following two method are used to let user drag the black JPanel1
+    */
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         xx = evt.getX();
         xy = evt.getY();
@@ -512,14 +516,18 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
             Logger.getLogger(WeatherWearGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_searchTextFieldActionPerformed
-
+/* 
+    This method is the event when you click the FJLabel
+    */
     private void FMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FMouseClicked
         F.setFont(new java.awt.Font("Segoe UI", 1, 13));
         C.setFont(new java.awt.Font("Segoe UI", 0, 13));
         TempMM.setText("High " + String.format("%.0f", kToF(weather.getTemp_max())) + "\u00b0 / Low " + String.format("%.0f", kToF(weather.getTemp_min())) + "\u00b0");
         Temp.setText(String.format("%.0f", kToF(weather.getTemp())) + "\u00b0");
     }//GEN-LAST:event_FMouseClicked
-
+/*
+    This method is the event when you click the CJLabel
+    */
     private void CMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CMouseClicked
         C.setFont(new java.awt.Font("Segoe UI", 1, 13));
         F.setFont(new java.awt.Font("Segoe UI", 0, 13));
@@ -588,7 +596,10 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
     private javax.swing.JTextField searchTextField;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
-
+   /*
+    * 
+    * This two class is the implementation of UnitsConversion Interface
+    */
     @Override
     public double kToC(double i) {
         return i - 273.15;
