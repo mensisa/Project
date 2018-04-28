@@ -34,6 +34,7 @@ public class WeatherWearGUI extends javax.swing.JFrame implements UnitsConversio
 
     /**
      * Creates new form WeatherWearGUI
+     * Right now our program can only get weather information from West Lafayette, Indianapolis, Chicago, Los Angeles, Paris and Kathmandu
      */
     private final String KEY = "156b77ca1f98f37be98062d7f5379f6b";
     OWM owm = new OWM(KEY);
